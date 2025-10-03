@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .table-1 {
+            border-collapse: collapse;
+            border: 1px solid black;
+            width: 100%;
+        }
+
+        .table-1 th, .table-1 td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        .sendBtn {
+            background-color: #40855E;
+        }
+
+        .sendBtn:hover {
+            background-color: green;
+        }
+
+        .deleteBtn {
+            color: red;
+            text-decoration: none;
+        }
+
+        .deleteBtn:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>HELLO ƯORLD</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-3 text-end">
+                <form action="{{url_for('add')}}" method="post">
+                    <input type="text" class="form-control mb-0.1" id="name" name="name" placeholder="Nhập tên của bạn" required> <br>
+                    <input type="text" class="form-control mb-0.1" id="message" name="message" placeholder="Nhập lời nhắn" required> <br>
+                    <button type="submit" class="btn btn-primary sendBtn" style="width: 100%;">Gửi</button>
+                </form>
+            </div>
+
+            <div class="col-1"></div>
+
+            <div class="col-8 text-center">
+                <table class="table-1">
+                    <tr>
+                        <th>Tên khách thăm </th>
+                        <th> Lời nhắn </th>
+                        <th> M muốn xóa ??? </th>
+                    </tr>
+
+                    {% if infor|length > 0 %}
+                        {% for name, message in infor %}
+                            <tr>
+                                <td>{{ name }}</td>
+                                <td>{{ message }}</td>
+                                <td><a class="deleteBtn" href="{{url_for('delete', index=loop.index0)}}"> Xoá </a></td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Không có dữ liệu</td>
+                        </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
